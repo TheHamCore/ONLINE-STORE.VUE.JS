@@ -1,8 +1,9 @@
 <template>
   <div class="v-catalog-item">
-    <img class = "v-catalog-item__image" v-bind:src=" require('../assets/images/' + product_data.image)" alt="img">
+    <img class = "v-catalog-item__image" 
+         v-bind:src=" require('../assets/images/' + product_data.image)" alt="img">
     <p class = "v-catalog-item__name">{{ product_data.name }}</p>
-    <p class = "v-catalog-item__price">Price: {{ product_data.price }} $</p>
+    <p class = "v-catalog-item__price">Price: {{ product_data.price }} Р</p>
     <button class = "v-catalog-item_add_to_cart_btn btn"
             v-on:click = "sendDataToPerend">
             Add to cart
