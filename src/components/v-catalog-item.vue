@@ -49,6 +49,7 @@ export default {
     margin-bottom: $margin*2;
     padding: $padding*2;
     &__image {
+      height: 200px;
       width: 100px;
     }
   }

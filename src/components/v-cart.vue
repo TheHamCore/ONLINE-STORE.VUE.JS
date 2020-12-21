@@ -2,7 +2,7 @@
   <div class="v-card">
     <p>CART</p>
     <v-cart-item
-      v-for = "(item, index) in cart_data"
+      v-for = "(item, index) in cart_data" 
       :key = "item.article"
       :cart_data_item = "item"
       @deleteFromCart = "deleteFromCart(index)">

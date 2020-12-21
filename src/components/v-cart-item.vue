@@ -3,21 +3,24 @@
     <img 
       class = "v-cart-item__image"
       v-bind:src=" require('../assets/images/' + cart_data_item.image)" alt="img">
+
     <div class="v-cart-item__info">
       <p> {{ cart_data_item.name }} </p>
       <p> {{ cart_data_item.price }} </p>
       <p> {{ cart_data_item.article }} </p>
     </div>
+
     <div class="v-cart-item_quantity"> 
       <p>Quantity</p>
       {{cart_data_item.quantity}} 
     </div>
+
     <button @click = "deleteFromCart">Delete</button>
   </div>
 </template>
 
 <script>
-export default{
+export default {
   name:'v-cart-item',
   props: {
     cart_data_item: {
@@ -36,7 +39,7 @@ export default{
     }
   },
   mounted() {
-    this.$set(this.cart_data_item, 'quantity', 1);
+    this.$set(this.cart_data_item, 'quantity', 1); //add key("quantity")
   }
 }
 </script>

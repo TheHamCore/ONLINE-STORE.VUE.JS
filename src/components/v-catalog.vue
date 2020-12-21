@@ -35,8 +35,9 @@ export default {
       "GET_PRODUCTS_FROM_API",
        "ADD_TO_CART"
     ]),
-    addToCart(data) {
-      this.ADD_TO_CART(data)
+    addToCart(product) {
+      this.ADD_TO_CART(product);
+      console.log(product); //выводит объект, по которому нажали
     }
   },
   computed: {
@@ -44,7 +45,7 @@ export default {
       "PRODUCTS"
     ])
   },
-  mounted() {
+  mounted() { //чтобы получить данные=>необходимо вызвать этот метод, в котором мы получаем данные по API
     this.GET_PRODUCTS_FROM_API()
     .then((response) => {
       if(response.data) {
