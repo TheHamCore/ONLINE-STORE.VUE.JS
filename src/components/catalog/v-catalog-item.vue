@@ -1,28 +1,59 @@
 <template>
   <div class="v-catalog-item">
-    <img class = "v-catalog-item__image" 
-         v-bind:src=" require('../../assets/images/' + product_data.image)" alt="img">
+
+    <v-popup
+      v-if="isInfoPopupVisible"
+      @closePopup='closeInfoPopup'
+      rightBtnTitle="Add to cart"
+      :poputTitle="product_data.name"
+      @clickOnAddButton="addProductToCart"
+    >
+    <img 
+      class = "v-catalog-item__image" 
+      v-bind:src=" require('../../assets/images/' + product_data.image)" alt="img"
+    >
+    <div>
+      <p class = "v-catalog-item__name">{{ product_data.name }}</p>
+      <p class = "v-catalog-item__price">Price: {{ product_data.price }} Р</p>
+      <p class = "v-catalog-item__price">Category: {{ product_data.category }}</p>
+    </div>
+  
+    </v-popup>
+
+    <img 
+      class = "v-catalog-item__image" 
+      v-bind:src=" require('../../assets/images/' + product_data.image)" alt="img"
+    >
 
     <p class = "v-catalog-item__name">{{ product_data.name }}</p>
 
     <p class = "v-catalog-item__price">Price: {{ product_data.price }} Р</p>
+
+    <button
+      class="v-catalog-item__show-info"
+      @click="showPopupInfo"
+    >
+      Show info
+    </button>
     
     <button 
       class = "v-catalog-item_add_to_cart_btn btn"
-      v-on:click = "clickOnAddButton">
+      @click = "clickOnAddButton"
+    >
       Add to cart
     </button>  
   </div>
 </template>
 
 <script>
-
+import vPopup from '../popup/v-popup'
 
 
 export default {
   name: 'v-catalog-item',
-  components: {},
-
+  components: {
+    vPopup
+  },
   props: {
     product_data: {
       type: Object,
@@ -33,12 +64,23 @@ export default {
   },
 
   data() {
-    return {}
+    return {
+      isInfoPopupVisible: false
+    }
   },
   methods: {
     clickOnAddButton() {
       this.$emit('emitAddEvent', this.product_data);
       //emitAddEvent => название события
+    },
+    showPopupInfo() {
+      this.isInfoPopupVisible = !this.isInfoPopupVisible;
+    },
+    closeInfoPopup() {
+      this.isInfoPopupVisible = !this.isInfoPopupVisible;
+    },
+    addProductToCart() {
+      this.clickOnAddButton();
     }
   },
   mounted() {
@@ -48,6 +90,14 @@ export default {
 </script>
 
 <style lang = "scss">
+  .v-popup {
+    padding: $padding*2;
+    position: fixed;
+    top: 50px;
+    right: 0;
+    left: 0;
+    width: 400px;
+  }
   .v-catalog-item {
     flex-basis: 25%;
     box-shadow: 0 0 8px 0;
