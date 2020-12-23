@@ -5,7 +5,7 @@ export default {
     SET_CART:(state, product) => {
         if(state.cart.length) {
             let isProductExists = false;
-            state.cart.map(function(item) {
+            state.cart.forEach(function(item) {
                 if(item.article === product.article) {
                     isProductExists = true;
                     item.quantity++;

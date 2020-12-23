@@ -3,10 +3,10 @@
 
     <v-popup
       v-if="isInfoPopupVisible"
-      @closePopup='closeInfoPopup'
+      @closePopup='changePopupVisibility'
       rightBtnTitle="Add to cart"
       :poputTitle="product_data.name"
-      @clickOnAddButton="addProductToCart"
+      @clickOnAddButton="clickOnAddButton"
     >
     <img 
       class = "v-catalog-item__image" 
@@ -26,12 +26,11 @@
     >
 
     <p class = "v-catalog-item__name">{{ product_data.name }}</p>
-
     <p class = "v-catalog-item__price">Price: {{ product_data.price }} Р</p>
 
     <button
       class="v-catalog-item__show-info"
-      @click="showPopupInfo"
+      @click="changePopupVisibility"
     >
       Show info
     </button>
@@ -57,9 +56,7 @@ export default {
   props: {
     product_data: {
       type: Object,
-      default() {
-        return {}
-      }
+      default: () => ({})
     }
   },
 
@@ -70,18 +67,11 @@ export default {
   },
   methods: {
     clickOnAddButton() {
-      this.$emit('emitAddEvent', this.product_data);
-      //emitAddEvent => название события
+      this.$emit('add', this.product_data);
     },
-    showPopupInfo() {
+    changePopupVisibility() {
       this.isInfoPopupVisible = !this.isInfoPopupVisible;
     },
-    closeInfoPopup() {
-      this.isInfoPopupVisible = !this.isInfoPopupVisible;
-    },
-    addProductToCart() {
-      this.clickOnAddButton();
-    }
   },
   mounted() {
     this.$set(this.product_data, 'quantity', 1); //add key("quantity")
@@ -99,6 +89,7 @@ export default {
     width: 400px;
   }
   .v-catalog-item {
+    margin-right: $margin*2;
     flex-basis: 25%;
     box-shadow: 0 0 8px 0;
     margin-bottom: $margin*2;

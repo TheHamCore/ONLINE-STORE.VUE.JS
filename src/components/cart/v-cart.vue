@@ -1,7 +1,5 @@
 <template>
   <div class="v-card">
-    
-
     <router-link :to="{name: 'catalog'}">
       <div class = "v-catalog__link_to_cart">Back to Catalog</div>
     </router-link>
@@ -63,9 +61,6 @@ export default {
     }
   },
   computed: {
-    // ...mapGetters([
-    //   'CART'
-    // ])
     cartTotalCost() {
       let result = [];
       if(this.cart_data.length) {
@@ -79,7 +74,6 @@ export default {
       } else {
         return 0;
       }
-    
     }
   },
 }

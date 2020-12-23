@@ -3,7 +3,8 @@
     <p 
       class="title"
       @click="areOptionsVisible = !areOptionsVisible"
-    >{{selectedOptions}}
+    >
+    {{selected.name || options[0].name}}
     </p> 
     <div 
       class="options"
@@ -33,10 +34,10 @@ export default {
         return []
       }
     },
-    selectedOptions: {
-      type: String,
+    selected: {
+      type: Object,
       default() {
-        return ''
+        return {}
       }
     }
   },

@@ -7,7 +7,7 @@
 
     <p>Catalog</p>
     <v-select
-      :selectedOptions="selected"
+      :selected="selected"
       :options="categories"
       @select="sortByCategories"
     />
@@ -29,6 +29,7 @@
         @change="setRangeSlider"
       >
     </div>
+
     <div class="range-values">
       <p>Min: {{minPrice}}</p>
       <p>Max: {{maxPrice}}</p>
@@ -36,13 +37,12 @@
 
     <div class="v-catalog_list">
       <v-catalog-item 
-        v-for = "product in filterProducts" 
+        v-for = "product in sortedProducts" 
         :key = "product.article"
         :product_data = "product"
-        @emitAddEvent = "addToCart"
-        />
+        @add = "addToCart"
+      />
     </div>
-    
   </div>
 </template>
 
@@ -62,16 +62,17 @@ export default {
   },
 
   data() {
+    const allOption = {name: 'Все', value: 'all'};
     return {
       categories: [
         {name: 'Мужские', value: 'м'},
         {name: 'Женские', value: 'ж'},
-        {name: 'Все', value: 'all'}
+        allOption,
       ],
-      selected:'Все',
+      selected:allOption,
       sortedProducts:[],
       minPrice:0,
-      maxPrice:1000
+      maxPrice:10000
     }
 },
   methods: {
@@ -81,28 +82,16 @@ export default {
     ]),
     addToCart(product) {
       this.ADD_TO_CART(product);
-      console.log(product); //выводит объект, по которому нажали
+      console.log(product);
     },
     sortByCategories(category) {
-      let vm = this;
-      this.sortedProducts = [...this.PRODUCTS];
-      this.sortedProducts = this.sortedProducts.filter(function(item) {
-        return item.price >= vm.minPrice && item.price <= vm.maxPrice;
+      this.selected = category;
+      this.sortedProducts = this.PRODUCTS.filter((item) => {
+        return item.price >= this.minPrice && item.price <= this.maxPrice;
       });
-      if(category) {
-        this.sortedProducts = this.sortedProducts.filter(function(e) {
-          vm.selected = category.name;
-          return e.category === category.name;
-        })
-      }
-      // this.sortedProducts = [];
-      // let vm = this;
-      // this.PRODUCTS.filter(function(item) {
-      //   if(item.category === category.name) {
-      //     vm.sortedProducts.push(item);
-      //   }
-      // })
-      // this.selected = category.name;
+      this.sortedProducts = this.sortedProducts.filter((e) => {
+        return e.category === category.name || this.selected.name === 'Все';
+      })
     },
     setRangeSlider() {
       if(this.minPrice > this.maxPrice) {
@@ -110,7 +99,7 @@ export default {
         this.maxPrice = this.minPrice;
         this.minPrice = tmp;
       }
-      this.sortByCategories();
+      this.sortByCategories(this.selected);
     }
   },
   computed: {
@@ -118,21 +107,10 @@ export default {
       "PRODUCTS",
       "CART"
     ]),
-    filterProducts() {
-      if(this.sortedProducts.length) {
-        return this.sortedProducts;
-      } else {
-        return this.PRODUCTS;
-      }
-    }
   },
-  mounted() { //чтобы получить данные=>необходимо вызвать этот метод, в котором мы получаем данные по API
-    this.GET_PRODUCTS_FROM_API()
-    .then((response) => {
-      if(response.data) {
-        console.log('Data arrived from mounted');
-      }
-    })
+  async mounted() { 
+    await this.GET_PRODUCTS_FROM_API()
+    this.sortedProducts = this.PRODUCTS;
   }
 }
 </script>
@@ -142,7 +120,6 @@ export default {
     &_list {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
       align-items: center;
       margin-top:30px;
     }

@@ -21,13 +21,14 @@
         <button 
           class="close_modal"
           @click="closePopup"
-          >
+        >
           Close
         </button>
+        
         <button 
           class="submit_btn"
           @click="clickOnAddButton"
-          >
+        >
           {{rightBtnTitle}}
         </button>
       </div>

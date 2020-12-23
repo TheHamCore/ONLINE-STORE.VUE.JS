@@ -2,7 +2,8 @@
   <div class="v-cart-item">
     <img 
       class = "v-cart-item__image"
-      v-bind:src=" require('../../assets/images/' + cart_data_item.image)" alt="img">
+      :src=" require('../../assets/images/' + cart_data_item.image)" alt="img"
+    >
 
     <div class="v-cart-item__info">
       <p> {{ cart_data_item.name }} </p>
@@ -17,7 +18,6 @@
         {{cart_data_item.quantity}}
         <span class="quantity__btn" @click="incrementItem">+</span>
       </span>
-       
     </div>
 
     <button @click = "deleteFromCart">Delete</button>
@@ -44,7 +44,6 @@ export default {
   methods:{
     deleteFromCart() {
       this.$emit('onButtonDelete')
-      //поднимаем событие навверх
     },
     decrementItem() {
       this.$emit('onClickBtnOfDecrement');
