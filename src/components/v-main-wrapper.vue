@@ -1,7 +1,10 @@
 <template>
     <div class="v-main-wrapper">
+
+        <keep-alive>
         <router-view></router-view>
-        <p> {{ title }} </p>
+        </keep-alive>
+        <!-- <p> {{ title }} </p> -->
         <!-- <v-catalog></v-catalog>
         <v-cart 
             v-if = "CART.length"
@@ -14,7 +17,7 @@
 <script>
     // import vCatalog from './v-catalog';
     // import vCart from './v-cart';
-    import { mapGetters } from 'vuex';
+    // import { mapGetters } from 'vuex';
 
 
 
@@ -31,9 +34,9 @@ export default {
         }
     },
     computed: {
-        ...mapGetters([
-            "CART"
-        ])
+        // ...mapGetters([
+        //     "CART"
+        // ])
     }
 
 }

@@ -1,3 +1,11 @@
 $padding: 8px;
 $margin: 8px;
 $radius: 4px;
+$green-bg: #26ae68;
+.btn {
+    padding: $padding $padding*2;
+    background: $green-bg;
+    color:#ffffff;
+    border:0;
+    border-radius: $radius;
+}

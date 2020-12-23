@@ -2,7 +2,7 @@
   <div class="v-cart-item">
     <img 
       class = "v-cart-item__image"
-      v-bind:src=" require('../assets/images/' + cart_data_item.image)" alt="img">
+      v-bind:src=" require('../../assets/images/' + cart_data_item.image)" alt="img">
 
     <div class="v-cart-item__info">
       <p> {{ cart_data_item.name }} </p>
@@ -12,7 +12,12 @@
 
     <div class="v-cart-item_quantity"> 
       <p>Quantity</p>
-      {{cart_data_item.quantity}} 
+      <span>
+        <span class="quantity__btn" @click="decrementItem">-</span>
+        {{cart_data_item.quantity}}
+        <span class="quantity__btn" @click="incrementItem">+</span>
+      </span>
+       
     </div>
 
     <button @click = "deleteFromCart">Delete</button>
@@ -20,6 +25,9 @@
 </template>
 
 <script>
+
+
+
 export default {
   name:'v-cart-item',
   props: {
@@ -35,18 +43,24 @@ export default {
   },
   methods:{
     deleteFromCart() {
-      this.$emit('deleteFromCart')
+      this.$emit('onButtonDelete')
+      //поднимаем событие навверх
+    },
+    decrementItem() {
+      this.$emit('onClickBtnOfDecrement');
+    },
+    incrementItem() {
+      this.$emit('onClickBtnOfIncrement');
     }
   },
-  mounted() {
-    this.$set(this.cart_data_item, 'quantity', 1); //add key("quantity")
-  }
+  
 }
 </script>
 
 <style lang ="scss">
   .v-cart-item {
     display: flex;
+    height: 100px;
     justify-content: space-between;
     align-items: center;
     flex-wrap: nowrap;
@@ -55,6 +69,9 @@ export default {
     padding: $padding*2;
     &__image {
       max-width: 50px;
+    }
+    .quantity__btn {
+      cursor: pointer;
     }
   }
 </style>

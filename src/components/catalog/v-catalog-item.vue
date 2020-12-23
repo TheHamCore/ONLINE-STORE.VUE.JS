@@ -1,15 +1,16 @@
 <template>
   <div class="v-catalog-item">
     <img class = "v-catalog-item__image" 
-         v-bind:src=" require('../assets/images/' + product_data.image)" alt="img">
+         v-bind:src=" require('../../assets/images/' + product_data.image)" alt="img">
 
     <p class = "v-catalog-item__name">{{ product_data.name }}</p>
 
     <p class = "v-catalog-item__price">Price: {{ product_data.price }} Р</p>
     
-    <button class = "v-catalog-item_add_to_cart_btn btn"
-            v-on:click = "addToCart">
-            Add to cart
+    <button 
+      class = "v-catalog-item_add_to_cart_btn btn"
+      v-on:click = "clickOnAddButton">
+      Add to cart
     </button>  
   </div>
 </template>
@@ -35,9 +36,13 @@ export default {
     return {}
   },
   methods: {
-    addToCart() {
-      this.$emit('addToCart', this.product_data);
+    clickOnAddButton() {
+      this.$emit('emitAddEvent', this.product_data);
+      //emitAddEvent => название события
     }
+  },
+  mounted() {
+    this.$set(this.product_data, 'quantity', 1); //add key("quantity")
   }
 }
 </script>
