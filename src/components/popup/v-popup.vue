@@ -2,11 +2,11 @@
   <div class="popup_wrapper" ref="popup_wrapper">
     <div class="v-popup">
       <div class="v-popup__header">
-        <span>{{poputTitle}}</span>
+        <span>{{poput_title}}</span>
         <span>
           <i 
             class="material-icons"
-            @click="closePopup"
+            @click="close_popup"
           >
             close
           </i>
@@ -20,16 +20,16 @@
       <div class="v-popup__footer">
         <button 
           class="close_modal"
-          @click="closePopup"
+          @click="close_popup"
         >
           Close
         </button>
         
         <button 
           class="submit_btn"
-          @click="clickOnAddButton"
+          @click="click_on_add_btn"
         >
-          {{rightBtnTitle}}
+          {{right_btn_title}}
         </button>
       </div>
     </div>
@@ -40,13 +40,13 @@
 export default {
   name:'v-popup',
   props: {
-    rightBtnTitle: {
+    right_btn_title: {
       type:String,
       default() {
         return 'Oк'
       }
     },
-    poputTitle: {
+    poput_title: {
       type:String,
       default() {
         return 'Popup name'
@@ -57,18 +57,18 @@ export default {
     return {}
   },
   methods:{
-    closePopup() {
-      this.$emit('closePopup')
+    close_popup() {
+      this.$emit('close_popup')
     },
-    clickOnAddButton() {
-      this.$emit('clickOnAddButton')
+    click_on_add_btn() {
+      this.$emit('click_on_add_btn')
     }
   },
   mounted() {
     let vm = this;
     document.addEventListener('click', function(item) {
       if(item.target === vm.$refs['popup_wrapper']) {
-        vm.closePopup();
+        vm.close_popup();
       }
     })
   }

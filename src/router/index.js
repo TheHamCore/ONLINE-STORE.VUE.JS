@@ -4,6 +4,7 @@ import Router from "vue-router";
 import vCatalog from '../components/catalog/v-catalog';
 import vCart from '../components/cart/v-cart';
 
+
 Vue.use(Router);
 
 let router = new Router({
@@ -24,5 +25,3 @@ let router = new Router({
 });
 
 export default router;
-
-

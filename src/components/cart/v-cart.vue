@@ -10,13 +10,13 @@
       v-for = "(item, index) in cart_data" 
       :key = "item.article"
       :cart_data_item = "item"
-      @onButtonDelete = "deleteFromCart(index)"
-      @onClickBtnOfDecrement = "toDecrementItem(index)" 
-      @onClickBtnOfIncrement = "toIncrementItem(index)"
+      @on_btn_delete = "delete_from_cart(index)"
+      @onclick_btn_of_decrement = "to_decrement_item(index)" 
+      @onclick_btn_of_increment = "to_increment_item(index)"
     />
     <div class="v-cart__total">
       <p class="total__name">Total</p>
-      <p>{{ cartTotalCost }}</p>
+      <p>{{ cart_total_cost }}</p>
     </div>
   </div>
 </template>
@@ -35,33 +35,27 @@ export default {
   props: {
     cart_data: {
       type: Array,
-      default() {
-        return[]
-      }
+      default: () => ([]) 
     }
   },
-  data() {
-    return {}
-  },
-
   methods: {
     ...mapActions([
       "DELETE_FROM_CART",
       "INCREMENT_CART_ITEM",
       "DECREMENT_CART_ITEM"
     ]),
-    deleteFromCart(index) {
+    delete_from_cart(index) {
       this.DELETE_FROM_CART(index);
     },
-    toDecrementItem(index) {
+    to_decrement_item(index) {
       this.DECREMENT_CART_ITEM(index);
     },
-    toIncrementItem(index) {
+    to_increment_item(index) {
       this.INCREMENT_CART_ITEM(index);
     }
   },
   computed: {
-    cartTotalCost() {
+    cart_total_cost() {
       let result = [];
       if(this.cart_data.length) {
         for(let item of this.cart_data) {

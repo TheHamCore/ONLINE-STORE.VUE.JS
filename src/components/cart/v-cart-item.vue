@@ -14,13 +14,13 @@
     <div class="v-cart-item_quantity"> 
       <p>Quantity</p>
       <span>
-        <span class="quantity__btn" @click="decrementItem">-</span>
+        <span class="quantity__btn" @click="decrement_item">-</span>
         {{cart_data_item.quantity}}
-        <span class="quantity__btn" @click="incrementItem">+</span>
+        <span class="quantity__btn" @click="increment_item">+</span>
       </span>
     </div>
 
-    <button @click = "deleteFromCart">Delete</button>
+    <button @click = "delete_from_cart">Delete</button>
   </div>
 </template>
 
@@ -33,23 +33,21 @@ export default {
   props: {
     cart_data_item: {
       type:Object,
-      default() {
-        return {}
-      }
+      default: () => ({}) 
     }
   },
   data(){
     return{}
   },
   methods:{
-    deleteFromCart() {
-      this.$emit('onButtonDelete')
+    delete_from_cart() {
+      this.$emit('on_btn_delete')
     },
-    decrementItem() {
-      this.$emit('onClickBtnOfDecrement');
+    decrement_item() {
+      this.$emit('onclick_btn_of_decrement');
     },
-    incrementItem() {
-      this.$emit('onClickBtnOfIncrement');
+    increment_item() {
+      this.$emit('onclick_btn_of_increment');
     }
   },
   

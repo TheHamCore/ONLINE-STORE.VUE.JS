@@ -9,7 +9,7 @@
     <v-select
       :selected="selected"
       :options="categories"
-      @select="sortByCategories"
+      @select="sort_by_categories"
     />
     <div class = "range-slider">
       <input 
@@ -18,7 +18,7 @@
         max = "10000" 
         step = "10"
         v-model.number="minPrice"
-        @change="setRangeSlider"
+        @change="set_range_slider"
       >
       <input 
         type="range" 
@@ -26,7 +26,7 @@
         max = "10000" 
         step = "10"
         v-model.number="maxPrice"
-        @change="setRangeSlider"
+        @change="set_range_slider"
       >
     </div>
 
@@ -37,10 +37,10 @@
 
     <div class="v-catalog_list">
       <v-catalog-item 
-        v-for = "product in sortedProducts" 
+        v-for = "product in sorted_products" 
         :key = "product.article"
         :product_data = "product"
-        @add = "addToCart"
+        @add = "add_to_cart"
       />
     </div>
   </div>
@@ -57,20 +57,16 @@ export default {
     vCatalogItem,
     vSelect
   },
-  props: {
-
-  },
-
   data() {
-    const allOption = {name: 'Все', value: 'all'};
+    const all_option = {name: 'Все', value: 'all'};
     return {
       categories: [
         {name: 'Мужские', value: 'м'},
         {name: 'Женские', value: 'ж'},
-        allOption,
+        all_option,
       ],
-      selected:allOption,
-      sortedProducts:[],
+      selected:all_option,
+      sorted_products:[],
       minPrice:0,
       maxPrice:10000
     }
@@ -80,26 +76,26 @@ export default {
       "GET_PRODUCTS_FROM_API",
       "ADD_TO_CART"
     ]),
-    addToCart(product) {
+    add_to_cart(product) {
       this.ADD_TO_CART(product);
       console.log(product);
     },
-    sortByCategories(category) {
+    sort_by_categories(category) {
       this.selected = category;
-      this.sortedProducts = this.PRODUCTS.filter((item) => {
+      this.sorted_products = this.PRODUCTS.filter((item) => {
         return item.price >= this.minPrice && item.price <= this.maxPrice;
       });
-      this.sortedProducts = this.sortedProducts.filter((e) => {
+      this.sorted_products = this.sorted_products.filter((e) => {
         return e.category === category.name || this.selected.name === 'Все';
       })
     },
-    setRangeSlider() {
+    set_range_slider() {
       if(this.minPrice > this.maxPrice) {
         let tmp = this.maxPrice;
         this.maxPrice = this.minPrice;
         this.minPrice = tmp;
       }
-      this.sortByCategories(this.selected);
+      this.sort_by_categories(this.selected);
     }
   },
   computed: {
@@ -110,7 +106,7 @@ export default {
   },
   async mounted() { 
     await this.GET_PRODUCTS_FROM_API()
-    this.sortedProducts = this.PRODUCTS;
+    this.sorted_products = this.PRODUCTS;
   }
 }
 </script>

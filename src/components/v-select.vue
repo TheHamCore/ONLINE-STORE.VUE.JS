@@ -2,18 +2,18 @@
   <div class="v-select">
     <p 
       class="title"
-      @click="areOptionsVisible = !areOptionsVisible"
+      @click="are_option_visible = !are_option_visible"
     >
     {{selected.name || options[0].name}}
     </p> 
     <div 
       class="options"
-      v-if="areOptionsVisible"
+      v-if="are_option_visible"
     > 
       <p 
         v-for="option in options"
         :key="option.value"
-        @click="selectOption(option)"
+        @click="select_option(option)"
       >
         {{option.name}}
       </p>
@@ -36,30 +36,28 @@ export default {
     },
     selected: {
       type: Object,
-      default() {
-        return {}
-      }
+      default: () => ({}) 
     }
   },
   data() {
     return {
-      areOptionsVisible:false
+      are_option_visible:false
     }
   },
   methods:{
-    selectOption(option) {
+    select_option(option) {
       this.$emit('select', option);
-      this.areOptionsVisible = false;
+      this.are_option_visible = false;
     },
-    hideSelect() {
-      this.areOptionsVisible = false;
+    hide_select() {
+      this.are_option_visible = false;
     }
   },
   mounted() {
-    document.addEventListener('click', this.hideSelect.bind(this), true)
+    document.addEventListener('click', this.hide_select.bind(this), true)
   },
   beforeDestroy() {
-    document.removeEventListener('click', this.hideSelect)
+    document.removeEventListener('click', this.hide_select)
   }
 }
 </script>

@@ -2,11 +2,11 @@
   <div class="v-catalog-item">
 
     <v-popup
-      v-if="isInfoPopupVisible"
-      @closePopup='changePopupVisibility'
-      rightBtnTitle="Add to cart"
-      :poputTitle="product_data.name"
-      @clickOnAddButton="clickOnAddButton"
+      v-if="is_info_popup_visible"
+      @close_popup='change_poput_visibility'
+      right_btn_title="Add to cart"
+      :poput_title="product_data.name"
+      @click_on_add_btn="click_on_add_btn"
     >
     <img 
       class = "v-catalog-item__image" 
@@ -30,14 +30,14 @@
 
     <button
       class="v-catalog-item__show-info"
-      @click="changePopupVisibility"
+      @click="change_poput_visibility"
     >
       Show info
     </button>
     
     <button 
       class = "v-catalog-item_add_to_cart_btn btn"
-      @click = "clickOnAddButton"
+      @click = "click_on_add_btn"
     >
       Add to cart
     </button>  
@@ -62,15 +62,15 @@ export default {
 
   data() {
     return {
-      isInfoPopupVisible: false
+      is_info_popup_visible: false
     }
   },
   methods: {
-    clickOnAddButton() {
+    click_on_add_btn() {
       this.$emit('add', this.product_data);
     },
-    changePopupVisibility() {
-      this.isInfoPopupVisible = !this.isInfoPopupVisible;
+   change_poput_visibility() {
+      this.is_info_popup_visible = !this.is_info_popup_visible;
     },
   },
   mounted() {

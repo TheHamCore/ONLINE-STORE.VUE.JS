@@ -14,7 +14,6 @@
 
 export default {
     name: "v-main-wrapper",
-    props: {},
     data() {
         return {
             title: 'v-main-wrapper'
